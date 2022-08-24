@@ -1,0 +1,21 @@
+INSERT INTO todo(title) VALUES ("daily task");
+INSERT INTO todo(title,done,urgent) VALUES ("make the beds",true,true);
+INSERT INTO todo(title,done) VALUES ("do the washing up",true);
+INSERT INTO todo(title,done,urgent) VALUES ("clean the bathroom and the kitchen",true,true);
+INSERT INTO todo(title,done) VALUES ("wipe all the surfaces with a cloth",true);
+INSERT INTO todo(title,done,urgent) VALUES ("remove the grease",true,true);
+INSERT INTO todo(title) VALUES ("tidy up");
+INSERT INTO todo(title,done,urgent) VALUES ("throw away the rubish",true,true);
+INSERT INTO todo(title,done) VALUES ("broom",true);
+INSERT INTO todo(title,done,urgent) VALUES ("sweep the floor",true,true);
+INSERT INTO todo(title,done) VALUES ("wash the floors",true);
+INSERT INTO todo(title,done,urgent) VALUES ("mop",true,true);
+INSERT INTO todo(title) VALUES ("vacuum the carpet");
+INSERT INTO todo(title,done,urgent) VALUES ("vacuum cleaner / hoover",true,true);
+INSERT INTO todo(title,done) VALUES ("dust the furniture",true);
+
+INSERT INTO assignee(name,email) VALUES ("Jack","jack@todo.com");
+INSERT INTO assignee(name,email) VALUES ("John","john@todo.com");
+INSERT INTO assignee(name,email) VALUES ("Claire","claire@todo.com");
+INSERT INTO assignee(name,email) VALUES ("Scarlet","scarlet@todo.com");
+INSERT INTO assignee(name,email) VALUES ("Rose","rose@todo.com");

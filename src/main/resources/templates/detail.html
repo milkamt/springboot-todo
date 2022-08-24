@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/}">Home page</a>
+    </nav>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Done</th>
+            <th>Urgent</th>
+
+        </tr>
+        <tr>
+            <td th:text="${todo.title}">Task</td>
+            <td th:text="${detail}">Detail</td>
+            <td th:text="${todo.done} ? 'DONE' : 'UNDONE'">Status</td>
+            <td th:text="${todo.urgent} ? 'URGENT' : 'NOT URGENT'">Imporance</td>
+        </tr>
+    </table>
+</body>
+</html>

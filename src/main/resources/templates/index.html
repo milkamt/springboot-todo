@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+        th:href="@{/styles.css}"
+        href="../static/styles.css"/>
+  <title>Todo App</title>
+</head>
+<body>
+
+  <header>
+    <h1>TODOS FOR TODAY:</h1>
+  </header>
+
+  <ul class="links">
+      <li><a th:href="@{/}">Home page</a></li>
+      <li><a th:href="@{/add}">Add new todo</a></li>
+      <li><a th:href="@{/assignees}">Assignees</a></li>
+  </ul>
+
+  <form th:action="@{/search}" method="post">
+    <input name="query" type="text" placeholder="...search for">
+
+    <label for="field">Search in:</label>
+    <select name="field" id="field">
+      <option value="title">Title</option>
+      <option value="description">Description</option>
+      <option value="assignee">Assignee</option>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <table th:if="${todos.size()}">
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>DONE</th>
+      <th>URGENT</th>
+      <th>ASSIGNEE</th>
+      <th>CREATED</th>
+      <td>DUE TIME</td>
+    </tr>
+    <tr th:each="task : ${todos}" th:object="${task}">
+      <td th:text="*{id}">ID</td>
+      <td>
+        <a th:href="@{/{id}/detail(id = ${task.id})}"
+           th:text="*{title}">Title</a>
+      </td>
+      <td th:text="*{done}">Done</td>
+      <td th:text="*{urgent}">Urgent</td>
+      <td>
+        <a th:href="@{/show_assignee/{id}(id = ${task.id})}"
+           th:text="${task?.assignee?.name}">Assignee</a>
+      </td>
+      <td th:text="*{creationDate}">Created</td>
+      <td th:text="*{dueDate}">Due date</td>
+      <td><a th:href="@{/{id}/delete(id = ${task.id})}">delete</a></td>
+      <td><a th:href="@{/{id}/edit(id = ${task.id})}">edit</a></td>
+    </tr>
+  </table>
+
+</body>
+</html>

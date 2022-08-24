@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Todo</title>
+</head>
+<body>
+    <header>
+        <h1>Add new todo</h1>
+    </header>
+    <form th:action="@{/add}" method="post">
+        <label for="newTask">New todo:</label>
+        <input type="text" id="newTask" name="newTask">
+
+        <label for="dueTime">Needs to be done until:</label>
+        <input type="datetime-local" id="dueTime" name="dueTime" value="2099-06-12T19:30">
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignee´s Todos</title>
+</head>
+<body>
+    <header>
+        <h1 th:text="|Todos of: ${assignee.name}|">Todos</h1>
+    </header>
+
+    <ul class="links">
+        <li><a th:href="@{/}">Home page</a></li>
+        <li><a th:href="@{/assignees}">Assignees</a></li>
+    </ul>
+
+    <table class="assignee_info">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+        </tr>
+        <tr>
+            <td th:text="${assignee.id}">ID</td>
+            <td th:text="${assignee.name}">NAME</td>
+            <td th:text="${assignee.email}">EMAIL</td>
+        </tr>
+    </table>
+
+    <h3 th:unless="${todos.size()}">No todos assigned..</h3>
+
+    <table th:if="${todos.size()}">
+        <tr>
+            <th>ID</th>
+            <th>Todo</th>
+        </tr>
+        <tr th:each="todo : ${todos}" th:object="${todo}">
+            <td th:text="${todo.id}">ID</td>
+            <td th:text="${todo.title}">Title</td>
+            <td><a th:href="@{/{id}/detail(id = ${todo.id})}">Detail</a></td>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+    <header>
+        <h1>Edit Todo</h1>
+    </header>
+    <form th:action="@{/{id}/edit(id = ${id})}" method="post">
+        <label for="title">Todo Title</label>
+        <input type="text" id="title" name="title" th:value="${title}">
+
+        <label for="description">Todo Description</label>
+        <input type="text" id="description" name="description" th:value="${description}">
+
+        <label for="urgent">Urgent</label>
+        <input type="checkbox" id="urgent" name="urgent">
+
+        <label for="done">Done</label>
+        <input type="checkbox" id="done" name="done">
+        <br>
+        <label for="assignee">Select assignee:</label>
+        <select name="assignee" id="assignee">
+            <option value="none">None</option>
+            <option th:each="person : ${assignees}" th:value="${person.name}"
+                    th:text="${person.name}"></option>
+        </select>
+
+        <label for="dueTime">Needs to be done until:</label>
+        <input type="datetime-local" id="dueTime" name="dueTime" value="2099-06-12T19:30">
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
