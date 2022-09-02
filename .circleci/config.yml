@@ -16,7 +16,7 @@ jobs:
           key: jars-{{ checksum “build.gradle” }}-{{ checksum “app/build.gradle” }}
       - run:
           name: Download Dependencies
-          command: ./gradlew build
+          command: sudo chmod +x ./gradlew
       - save_cache:
           key: jars-{{ checksum “build.gradle” }}-{{ checksum “app/build.gradle” }}
           paths:
