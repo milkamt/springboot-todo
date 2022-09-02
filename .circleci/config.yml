@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  build:
+
+    docker:
+      - image: milkamt/springboot-todo:latest
+        environment:
+          DATABASE_URL: $RDS_URL
+          DATABASE_USER: $RDS_USER
+          DATABASE_PASSWORD: $RDS_PASSWORD
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-
+          - run: gradle dependencies
+          - save_cache:
+              paths:
+                - ~/.m2
+              key: v1-dependencies-{{ checksum "build.gradle" }}
