@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - checkout
-      - run: ./gradlew buildg
+      - run: ./gradlew build
