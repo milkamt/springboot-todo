@@ -14,7 +14,7 @@ jobs:
       - checkout
       - restore_cache:
     key: jars-{{ checksum “build.gradle” }}-{{ checksum “app/build.gradle” }}
-           - run:
+    run:
     name: Download Dependencies
     command: ./gradlew build
                - save_cache:
