@@ -53,11 +53,14 @@ workflows:
                 - main
   Deploy-Infra:
     jobs:
-      - plan-apply
+      - plan-apply:
+          context: terraform
       - hold-apply:
+          context: terraform
           type: approval
           requires:
             - plan-apply
       - apply:
+          context: terraform
           requires:
             - hold-apply
