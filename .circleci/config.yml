@@ -46,7 +46,7 @@ jobs:
 workflows:
   Build:
     jobs:
-      - Build_code
+      - Build_code:
           filters:
             branches:
               only:
