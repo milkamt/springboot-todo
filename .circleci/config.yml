@@ -1,17 +1,63 @@
-version: 2
-
+version: '2.1'
+orbs:
+  terraform: circleci/terraform@1.2.0
 jobs:
-  build:
-
+  Build_code:
     docker:
       - image: milkamt/springboot-todo:latest
         environment:
           DATABASE_URL: $RDS_URL
           DATABASE_USER: $RDS_USER
           DATABASE_PASSWORD: $RDS_PASSWORD
-
     steps:
       - checkout
       - run:
           name: Download Dependencies
           command: chmod +x ./gradlew
+
+  plan-apply:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform init & plan
+          command: |
+            terraform init -input=false
+            terraform plan -out tfapply -var-file terraform.tfvars
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+    apply:
+      docker:
+        - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      steps:
+        - attach_workspace:
+            at: .
+        - run:
+            name: terraform
+            command: |
+              terraform apply -auto-approve tfapply
+        - persist_to_workspace:
+            root: .
+            paths:
+              - .
+workflows:
+  Build:
+    jobs:
+      - Build_code
+          filters:
+            branches:
+              only:
+                - main
+  Deploy-Infra:
+    jobs:
+      - plan-apply
+      - hold-apply:
+          type: approval
+          requires:
+            - plan-apply
+      - apply:
+          requires:
+            - hold-apply
