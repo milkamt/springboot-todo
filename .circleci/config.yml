@@ -43,31 +43,31 @@ jobs:
           root: .
           paths:
             - .
-  plan-destroy:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: terraform create destroy plan
-          command: |
-            terraform plan -destroy -out tfdestroy
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+#  plan-destroy:
+#    docker:
+#      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: terraform create destroy plan
+#          command: |
+#            terraform plan -destroy -out tfdestroy
+#     - persist_to_workspace:
+#          root: .
+#          paths:
+#            - .
 
-  destroy:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: terraform destroy
-          command: |
-            terraform apply -auto-approve tfdestroy
+#  destroy:
+#    docker:
+#      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: terraform destroy
+#          command: |
+#            terraform apply -auto-approve tfdestroy
 workflows:
   Build:
     jobs:
@@ -88,15 +88,15 @@ workflows:
           context: terraform
           requires:
             - hold-apply
-      - plan-destroy:
-          context: terraform
-          requires:
-            - apply
-      - hold-destroy:
-          type: approval
-          requires:
-            - plan-destroy
-      - destroy:
-          context: terraform
-          requires:
-            - hold-destroy
+#      - plan-destroy:
+#          context: terraform
+#          requires:
+#            - apply
+#      - hold-destroy:
+#          type: approval
+#         requires:
+#            - plan-destroy
+#      - destroy:
+#          context: terraform
+#          requires:
+#            - hold-destroy

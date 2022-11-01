@@ -1,17 +1,28 @@
-version: "3"
+version: '3.8'
+
 services:
-  application:
-    image: milkamt/springboot-todo:latest
-    restart: on-failure
-    env_file:
-      - ./.env
-    ports:
-      - "8080:8080"
+  mysqldb:
+    image: mysql:8.0
+    restart: unless-stopped
     environment:
-      SPRING_APPLICATION_JSON: '{
-            "spring.datasource.url"  : "$DATASOURCE_URL",
-            "spring.datasource.username" : "$MYSQL_USERNAME",
-            "spring.datasource.password" : "$MYSQL_PASSWORD",
-            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-            "spring.jpa.hibernate.ddl-auto" : "update"
-          }'
+      - MYSQL_ROOT_PASSWORD=secret-pw
+      - MYSQL_USER=sb_todo
+      - MYSQL_PASSWORD=springboot-psw
+      - MYSQL_DATABASE=springboot_todo
+    ports:
+      - 3306:3306
+    networks:
+      - sb-todo-net
+  app:
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      - sb-todo-net
+    stdin_open: true
+    tty: true
+networks:
+  sb-todo-net:

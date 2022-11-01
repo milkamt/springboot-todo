@@ -1,4 +1,7 @@
-FROM openjdk:11
-EXPOSE 8080
-ADD build/libs/ConnectionWithMySQL-0.0.1-SNAPSHOT.jar ConnectionWithMySQL-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","ConnectionWithMySQL-0.0.1-SNAPSHOT.jar"]
+FROM gradle:7.4.2-jdk11
+
+WORKDIR springboot-todo
+COPY . .
+RUN ./gradlew clean build -x test
+
+CMD ./gradlew bootRun
